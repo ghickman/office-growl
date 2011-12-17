@@ -25,15 +25,28 @@ def bark(message, host, os):
         priority = 1,
     )
 
+from Queue import Queue
+from threading import Thread
+q = Queue()
+def worker():
+    while True:
+        item = q.get()
+        bark(item['message'], item['host'], item['os'])
+        q.task_done()
+
 from flask import Flask, request
 app = Flask(__name__)
 
 @app.route('/growl', methods=['POST'])
 def hello():
-    bark(request.json['message'], request.json['host'], request.json['os'])
+    q.put(request.json)
     return ''
 
 if __name__ == '__main__':
+    t = Thread(target=worker)
+    t.daemon = True
+    t.start()
+
     app.debug = True
     app.run()
 
