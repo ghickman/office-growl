@@ -25,6 +25,15 @@ def bark(message, host, os):
         priority = 1,
     )
 
-for peon in peons:
-    bark('Burritos have Arrived.', peons[peon]['host'], peons[peon]['os'])
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route('/growl', methods=['POST'])
+def hello():
+    bark(request.json['message'], request.json['host'], request.json['os'])
+    return ''
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()
 
