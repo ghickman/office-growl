@@ -40,6 +40,10 @@ def worker():
         bark(**q.get())
         q.task_done()
 
+t = Thread(target=worker)
+t.daemon = True
+t.start()
+
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def announce():
@@ -47,8 +51,5 @@ def announce():
     return ''
 
 if __name__ == '__main__':
-    t = Thread(target=worker)
-    t.daemon = True
-    t.start()
     app.run(debug=c.config.get('debug'))
 
