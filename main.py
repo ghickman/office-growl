@@ -50,5 +50,5 @@ if __name__ == '__main__':
     t = Thread(target=worker)
     t.daemon = True
     t.start()
-    app.run(debug=True)
+    app.run(debug=c.config.get('debug'))
 
