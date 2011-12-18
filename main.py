@@ -51,5 +51,5 @@ def announce():
     return ''
 
 if __name__ == '__main__':
-    app.run(debug=c.config.get('debug'))
+    app.run(debug=True)
 
