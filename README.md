@@ -40,7 +40,7 @@ Create a supervisor config file for the site:
 Add the config for gunicorn:
 
     [program:office_growl]
-    command=(/usr/bin/cd /var/www/office_growl; /var/www/office_growl/bin/gunicorn -w 2 -b 127.0.0.1:4000 -u www-data -g www-data main:app
+    command=(/usr/bin/cd /var/www/office_growl; /var/www/office_growl/bin/gunicorn -w 2 -b 127.0.0.1:4000 -u www-data -g www-data main:app)
     user=www-data
     autostart=true
     autorestart=true
