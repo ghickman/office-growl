@@ -37,7 +37,7 @@ def worker():
         q.task_done()
 
 app = Flask(__name__)
-@app.route('/growl', methods=['POST'])
+@app.route('/', methods=['POST'])
 def announce():
     q.put(request.json)
     return ''
