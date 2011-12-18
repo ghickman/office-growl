@@ -1,0 +1,4 @@
+app_name: 'My Application Name'
+icon_url: 'http://example.com/favicon.ico'
+notification_type: 'Main'
+title: 'Notification Title'

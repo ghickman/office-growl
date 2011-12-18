@@ -4,11 +4,15 @@ from threading import Thread
 from flask import Flask, request
 from gntp.notifier import GrowlNotifier
 
-NAME = ''
-ICON_URL = ''
-NOTIFIER = ''
+from config import Config
+
+c = Config('config.yaml')
+
+NAME = c.config.get('app_name')
+ICON_URL = c.config.get('icon_url')
+NOTIFIER = c.config.get('notification_type')
 PORTS = {'lion': 23053, 'snow leopard': 23052}
-TITLE = ''
+TITLE = c.config.get('title')
 
 def bark(message, host, os, password):
     growl = GrowlNotifier(
