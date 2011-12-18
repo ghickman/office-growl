@@ -1,44 +1,44 @@
+from Queue import Queue
+from threading import Thread
+
+from flask import Flask, request
 from gntp.notifier import GrowlNotifier
 
-ports = {'lion': 23053, 'snow leopard': 23052}
+NAME = ''
+ICON_URL = ''
+NOTIFIER = ''
+PORTS = {'lion': 23053, 'snow leopard': 23052}
+TITLE = ''
 
-peons = {'george': {'host': 'localhost', 'os': 'lion'}}
-
-incuna_main = 'Incuna Notifier'
-
-def bark(message, host, os):
+def bark(message, host, os, password):
     growl = GrowlNotifier(
-        applicationName = 'Incuna Public Service Announcements',
-        notifications = [incuna_main],
-        defaultNotifications = [incuna_main],
+        applicationName = NAME,
+        notifications = [NOTIFIER],
+        defaultNotifications = [NOTIFIER],
         hostname = host,
-        port = ports[os],
+        port = PORTS[os],
+        password = password
     )
     growl.register()
 
     growl.notify(
-        noteType = incuna_main,
-        title = 'Incuna PSA',
+        noteType = NOTIFIER,
+        title = TITLE,
         description = message,
-        icon = 'http://incuna.com/favicon.ico',
+        icon = ICON_URL,
         sticky = False,
         priority = 1,
     )
 
-from Queue import Queue
-from threading import Thread
 q = Queue()
 def worker():
     while True:
-        item = q.get()
-        bark(item['message'], item['host'], item['os'])
+        bark(**q.get())
         q.task_done()
 
-from flask import Flask, request
 app = Flask(__name__)
-
 @app.route('/growl', methods=['POST'])
-def hello():
+def announce():
     q.put(request.json)
     return ''
 
