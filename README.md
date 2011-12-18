@@ -87,7 +87,6 @@ Reload Nginx:
 
 
 ## To Do
-
-Document the deployment with SSL support.
-The password is being sent in plain text right now. Use base64 to encode it and update this project to deal with it in that format.
+* Document the deployment with SSL support.
+* The password is being sent in plain text right now. Use base64 to encode it and update this project to deal with it in that format.
 
