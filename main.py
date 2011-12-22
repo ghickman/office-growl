@@ -19,7 +19,7 @@ def bark(message, host, password):
         notifications = [NOTIFIER],
         defaultNotifications = [NOTIFIER],
         hostname = host,
-        port = 23053,
+        port = '23053',
         password = password
     )
     growl.register()
