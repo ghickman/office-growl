@@ -11,16 +11,15 @@ c = Config('config.yaml')
 NAME = c.config.get('app_name')
 ICON_URL = c.config.get('icon_url')
 NOTIFIER = c.config.get('notification_type')
-PORTS = {'lion': 23053, 'snow leopard': 23052}
 TITLE = c.config.get('title')
 
-def bark(message, host, os, password):
+def bark(message, host, password):
     growl = GrowlNotifier(
         applicationName = NAME,
         notifications = [NOTIFIER],
         defaultNotifications = [NOTIFIER],
         hostname = host,
-        port = PORTS[os],
+        port = 23053,
         password = password
     )
     growl.register()
