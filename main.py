@@ -47,7 +47,8 @@ t.start()
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def announce():
-    q.put(request.json)
+    for notification in request.json:
+        q.put(notification)
     return ''
 
 if __name__ == '__main__':
